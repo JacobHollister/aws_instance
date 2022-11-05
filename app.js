@@ -21,14 +21,6 @@ app.use('/api/v1/analyse', analyse)
 // Port Configuration
 const port = process.env.PORT || 5001;
 
-// Serve built React application in production Enviroment
-if(process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '../client/build')))
-    app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, '../', 'client', 'build', 'index.html')))
-} else {
-    app.get('/', (req, res) => res.send('Server not set to production'))
-}
-
 // Server startup function
 const start = async () => {
     try {
