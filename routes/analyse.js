@@ -9,11 +9,17 @@ const { analyzeSentiment } = require('../util/sentiment')
 // @route   POST /api/v1/analyse
 // @access  Public
 router.route('/').post((req, res) => {
-    const tweet = req.body
-    
-    const analysis = analyzeSentiment(tweet.data.text)
-    
-    res.status(200).json({...tweet, sentiment: analysis})
+    try {
+        const text = req.body.text
+        console.log("text: ", text)
+        
+        const analysis = analyzeSentiment(text)
+        
+        res.status(200).json({sentiment: analysis})
+    } catch (e) {
+        console.log("error: ", e)
+        res.status(500).json({message: "Could not analyse tweet"})
+    }
 })
 
 module.exports = router
